@@ -44,13 +44,13 @@ const handleDownloadPDF = () => {
     const formdata = new FormData();
     formdata.append("image", img);
 
-    fetch("http://localhost:3000/single", {
+    fetch("https://my-backend-wo75.onrender.com/single", {
       method: "POST",
       body: formdata
     })
       .then((res) => res.json()) // assuming backend sends JSON
       .then((data) => {
-        const imageUrl = `http://localhost:3000/uploads/${data.filename}`;
+        const imageUrl = `https://my-backend-wo75.onrender.com/uploads/${data.filename}`;
   setUploadedImage(imageUrl);// whatever backend sends
       })
       .catch((err) => {
