@@ -10,22 +10,61 @@ const [uploadedImage, setUploadedImage] = useState(null);
 const handleDownloadPDF = () => {
   const doc = new jsPDF();
 
-  // Add Name
+  // Title
+  doc.setFontSize(24);
+  doc.setFont("helvetica", "bold");
+  doc.text("Resume", 105, 20, null, null, "center");
+
+  // Name Section
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Name: ${name}`, 20, 40);
+
+  // Skills Section
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.text("Skills:", 20, 60);
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.text("• Frontend Development", 30, 70);
+  doc.text("• React, Next.js", 30, 80);
+  doc.text("• 4 years of experience", 30, 90);
+
+  // Experience Section
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.text("Experience:", 20, 110);
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.text("Worked at XYZ Company as Frontend Developer", 30, 120);
+  doc.text("Worked at XYZ Company as Frontend Developer", 30, 130);
+  doc.text("Worked at XYZ Company as Frontend Developer", 30, 140);
+  doc.text("Worked at XYZ Company as Frontend Developer", 30, 150);
+  doc.text("Worked at XYZ Company as Frontend Developer", 30, 160);
+
+// Connection
+doc.setFont("helvetica", "bold");
+doc.setFontSize(14);
+doc.text("Connect with me:", 20, 180);
+
+// Social Media
+doc.setFont("helvetica", "normal");
+doc.text("LinkedIn", 70, 180);
+doc.text("GitHub", 110, 180);
+doc.text("Twitter", 150, 180);
 
 
-
-  doc.setFontSize(20);
-  doc.text(`Name: ${name}`, 20, 30);
-
-
-
-  
-  // Add Image
+  // Profile Image (top-right corner in circle)
   if (uploadedImage) {
     const img = new Image();
     img.src = uploadedImage;
     img.onload = () => {
-      doc.addImage(img, "PNG", 20, 50, 100, 100); // x,y,w,h
+      
+      doc.addImage(img, "PNG", 145, 30, 48, 48);
+
+      // Add image inside circle (slightly smaller so it fits)
+
+      // Save after adding image
       doc.save("resume.pdf");
     };
   } else {
