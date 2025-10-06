@@ -7,6 +7,7 @@ import { jsPDF } from "jspdf";
 // Constants
 const API_BASE_URL = "https://my-backend-wo75.onrender.com";
 
+
 // --- NEW/UPDATED: Live Resume Preview Component ---
 const ResumePreview = ({ name, uploadedImage }) => {
     // Hardcoded resume content for the live visual mockup
@@ -150,6 +151,7 @@ function App() {
   const [selectedResume, setSelectedResume] = useState(null); // New state for viewing/editing
 
   const { message, showMessage, confirmAction, setConfirmAction } = useAppMessages();
+const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // 1. READ: Function to fetch the list of resumes
   const fetchResumes = async () => {
@@ -218,9 +220,14 @@ function App() {
       showMessage("Please select an image first");
       return;
     }
+ if (!name.trim()) {
+    showMessage("Please enter a name before uploading");
+    return;
+  }
 
     const formdata = new FormData();
     formdata.append("image", img);
+formdata.append("title",name)
 
     try {
       const res = await fetch(`${API_BASE_URL}/single`, {
@@ -446,6 +453,8 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
 };
 
 
+
+
   return (
     <div style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#f9fafb', minHeight: '100vh', padding: '20px' }}>
       
@@ -497,6 +506,43 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
             <h1 style={{ fontSize: '2rem', fontWeight: '700', color: '#1f2937', marginBottom: '30px' }}>
                 {selectedResume ? `Viewing/Editing: ${selectedResume.title || selectedResume.id}` : 'Create New Resume'}
             </h1>
+<button
+  onClick={() => setSidebarOpen(!sidebarOpen)}
+  className="fixed top-5 left-5 z-50 bg-indigo-600 text-white p-3 rounded-md"
+>
+  ☰
+</button>
+
+{/* Sidebar */}
+<div
+  className={`sidebar ${sidebarOpen ? "open" : ""}`}
+>
+  <div className="sidebar-header">
+    <h2>📁 Saved Resumes</h2>
+    <button onClick={() => setSidebarOpen(false)} className="close-btn">&times;</button>
+  </div>
+
+  <div className="sidebar-content">
+    {resumes.length === 0 && <p className="empty-text">No resumes found.</p>}
+    {resumes.map((resume) => (
+      <div
+        key={resume._id || resume.id}
+        onClick={() => {
+          handleSelectResume(resume);
+          setSidebarOpen(false);
+        }}
+        className="resume-item"
+      >
+        <img
+          src={`${API_BASE_URL}/uploads/${resume.filename}`}
+          alt={resume.title}
+          className="resume-thumb"
+        />
+        <span className="resume-title">{resume.title}</span>
+      </div>
+    ))}
+  </div>
+</div>
 
             <div style={{ marginBottom: '20px' }}>
                 <h1 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '8px' }}>1. Enter your Username</h1>
