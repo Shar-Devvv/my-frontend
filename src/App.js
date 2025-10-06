@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { jsPDF } from "jspdf"; 
 
 // Constants
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://my-backend-wo75.onrender.com";
 
 
 // --- NEW/UPDATED: Live Resume Preview Component ---
