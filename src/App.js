@@ -504,7 +504,7 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
 
         {/* RIGHT COLUMN: Resume Creation Form/Controls */}
         <div style={{ flexGrow: 1, padding: '30px 40px' }}>
-            <h1 style={{ fontSize: '2rem', fontWeight: '700', color: '#1f2937', marginBottom: '30px' }}>
+            <h1 style={{ fontSize: '30px',whiteSpace: 'nowrap', fontWeight: '700', color: '#1f2937', marginBottom: '30px' }}>
                 {selectedResume ? `Viewing/Editing: ${selectedResume.title || selectedResume.id}` : 'Create New Resume'}
             </h1>
 <button
