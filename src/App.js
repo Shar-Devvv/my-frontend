@@ -480,12 +480,13 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
 
       {/* Main Content Area */}
       <div style={{ 
-          display: 'flex', 
-          backgroundColor: 'white', 
-          borderRadius: '12px', 
-          boxShadow: '0 10px 15px rgba(0,0,0,0.1)',
-          maxWidth: '1200px',
-          margin: '0 auto'
+          display: 'flex',
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    transition: 'margin-right 0.3s ease', // <-- smooth shift
+    marginRight: sidebarOpen ? '250px' : '0px' 
       }}>
         
         {/* LEFT COLUMN: Live Preview */}
@@ -509,6 +510,9 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
 <button
   onClick={() => setSidebarOpen(!sidebarOpen)}
   className="fixed top-5 left-5 z-50 bg-indigo-600 text-white p-3 rounded-md"
+  style={{position: "relative",
+    bottom: "16%",
+    left: "97%"}}
 >
   ☰
 </button>
