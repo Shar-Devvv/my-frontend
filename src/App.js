@@ -553,7 +553,7 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g., Jane Doe"
                     style={{ 
-                        width: '100%', padding: '10px', border: '1px solid #ccc', 
+                        width: '57%', padding: '10px', border: '1px solid #ccc', 
                         borderRadius: '6px', fontSize: '1rem' 
                     }}
                 />
