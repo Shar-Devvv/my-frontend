@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { jsPDF } from "jspdf"; 
 
 // Constants
-const API_BASE_URL = "https://my-backend-wo75.onrender.com";
+const API_BASE_URL = "http://localhost:3000";
 
 
 // --- NEW/UPDATED: Live Resume Preview Component ---
@@ -529,21 +529,18 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
   <div className="sidebar-content">
     {resumes.length === 0 && <p className="empty-text">No resumes found.</p>}
     {resumes.map((resume) => (
-      <div
-        key={resume._id || resume.id}
-        onClick={() => {
-          handleSelectResume(resume);
-          setSidebarOpen(false);
-        }}
-        className="resume-item"
-      >
-        <img
-          src={`${API_BASE_URL}/uploads/${resume.filename}`}
-          alt={resume.title}
-          className="resume-thumb"
-        />
-        <span className="resume-title">{resume.title}</span>
-      </div>
+      <div key={resume._id || resume.id} className="resume-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div onClick={() => { handleSelectResume(resume); setSidebarOpen(false); }} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+      <img src={`${API_BASE_URL}/uploads/${resume.filename}`} alt={resume.title} className="resume-thumb" />
+      <span className="resume-title" style={{ marginLeft: '10px' }}>{resume.title}</span>
+    </div>
+    <button
+      onClick={() => setConfirmAction({ id: resume._id || resume.id, title: resume.title })}
+      style={{ background: 'transparent', border: 'none', color: '#e53e3e', cursor: 'pointer', fontSize: '1.1rem' }}
+    >
+      🗑️
+    </button>
+  </div>
     ))}
   </div>
 </div>
@@ -567,7 +564,10 @@ const addExperience = (doc, y_start, margin, text_color_dark) => {
                 <input
                     type="file"
                     onChange={(e) => setImg(e.target.files[0])}
-                    style={{ padding: '10px 0' }}
+                    style={{ border: 'none', borderRadius: '8px',
+                    backgroundColor: '#4f46e5', color: 'white', fontWeight: '600',
+                    cursor: 'pointer', fontSize: '1rem', transition: 'background-color 0.2s',
+                    marginRight: '15px' }}
                 />
             </div>
 
